@@ -2,7 +2,6 @@ const logEvent = require('../events/myEmitter');
 const Order = require('../models/order.model');
 const Product = require('../models/product.model');
 const sequalize = require('../../dbConn');
-const con = require('../../conQuery');
 
 
 
