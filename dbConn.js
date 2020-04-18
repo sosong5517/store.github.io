@@ -14,6 +14,4 @@ const connection = new Sequelize(
 
 
 
-module.exports = {
-  connection
-};
+module.exports =connection;

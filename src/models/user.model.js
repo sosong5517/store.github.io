@@ -1,5 +1,5 @@
 const Sequelize = require("sequelize");
-const connection = require('../../dbConn').connection;
+const connection = require('../../dbConn');
 
 const SysUser = connection.define('sysUser', {
     id: {

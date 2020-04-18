@@ -1,7 +1,7 @@
 const dotenv = require('dotenv');
 const server = require('./server');
 const logEvent = require('./src/events/myEmitter');
-const connection = require('./dbConn').connection;
+const connection = require('./dbConn');
 
 
 

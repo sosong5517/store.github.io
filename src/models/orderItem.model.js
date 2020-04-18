@@ -1,5 +1,5 @@
 const Sequelize = require("sequelize");
-const connection = require('../../dbConn').connection;
+const connection = require('../../dbConn');
 
 const OrderItem = connection.define('orderItem', {
     orderId: {
