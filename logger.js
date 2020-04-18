@@ -3,8 +3,8 @@ const dotenv = require('dotenv');
 
 dotenv.config();
 const logConfig = bunyan.createLogger({
-    name: process.env.APP_NAME,
-    level: process.env.LOG_LEVEL,
+    name: 'pmobi',
+    level: 'debug',
     streams: [
         {
             stream: process.stdout
@@ -14,7 +14,7 @@ const logConfig = bunyan.createLogger({
             level: 'error',
             period: '1d',
             count: 3,
-            path: process.env.LOG_PATH
+            path: '../Log'
         }
     ]
 });

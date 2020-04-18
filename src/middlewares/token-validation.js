@@ -10,8 +10,8 @@ const tokenValidation = async (req, res, next) => {
             const token = authorization.slice(7, authorization.length);
             console.log('token',token)
 
-            const data = jwt.verify(token, process.env.SECRET_KEY);
-            console.log('data jwt', data)
+            const data = jwt.verify(token, sosong);
+
             const valid = await authServive.validationSession(data.sessionId);
             console.log('valid',valid)
             if (valid) {

@@ -1,10 +1,9 @@
 const redis = require('redis');
 
-const { REDIS_HOST, REDIS_PORT, REDIS_DB } = process.env;
 
 const client = redis.createClient({
-    host: REDIS_HOST,
-    port: REDIS_PORT
+    host: sosong-redis.mnkbea.0001.apse1.cache.amazonaws.com,
+    port: 6379
 });
 const set = async ({ key, value, expires }) => {
     await client.set(key, value);

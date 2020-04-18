@@ -7,7 +7,6 @@ class ProductService {
     async getAllProduct() {
         let result;
         try {
-            // result = await Product.findAll();
             result = await Product.findAll({include: Category});
         } catch (e) {
             logEvent.emit('APP-ERROR', {
@@ -22,7 +21,6 @@ class ProductService {
     async getAllProductPaging(offset, limit) {
         let result;
         try {
-            // result = await Product.findAll();
             result = await Product.findAndCountAll({offset: Number(offset), limit: Number(limit)});
         } catch (e) {
             logEvent.emit('APP-ERROR', {

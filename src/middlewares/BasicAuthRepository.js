@@ -13,9 +13,8 @@ class User {
 
 module.exports.findByUsername = (username, cb) => {
     const userDatas = [{
-        username: process.env.BASIC_AUTH_USERNAME,
-        password: process.env.BASIC_AUTH_PASSWORD
-    }]
+        username: sosong,
+        password: sosongpass    }]
     let userData;
 
     userData = userDatas.map((value) => {

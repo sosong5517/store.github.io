@@ -8,13 +8,13 @@ const connection = require('./dbConn').connection;
 
 dotenv.config();
 
-if (process.env.APP_NAME) {
+if (pmobi) {
     connection.authenticate().then(() => {
-        server.listen(process.env.APP_PORT, '0.0.0.0', function () {
+        server.listen(3000, '0.0.0.0', function () {
             if (server.listening) {
                 logEvent.emit('APP-INFO', {
                     logTitle: 'SERVER',
-                    logMessage: `Server is listening on ${process.env.APP_PORT}`
+                    logMessage: `Server is listening on 3000`
                 });
             }
         });
