@@ -5,10 +5,10 @@ const {addNewProduct, getProductList, deleteProduct, updateProduct} = require(".
 const tokenValidation = require('../middlewares/token-validation');
 const productService = new ProductService();
 
-//router.use(tokenValidation);
+router.use(tokenValidation);
 router.get('/', (req, res, next) => getProductList(req, res, productService));
 router.post('/', (req, res, next) => addNewProduct(req, res, productService));
-router.delete('/:id', (req, res, next) => deleteProduct(req, res, productService));
+router.delete('/', (req, res, next) => deleteProduct(req, res, productService));
 router.put('/', (req, res, next) => updateProduct(req, res, productService));
 
 module.exports = router;

@@ -1,11 +1,14 @@
 const userAuthentication = async (req, res, service) => {
     
+    
     try {
         const user = req.body;
         const userInfo = await service.authenticate(user);
         if (userInfo) {
+            console.log('kogin masuk',userInfo)
             res.send(userInfo);
         } else {
+            console.log('gak ada user info')
             res.sendStatus(401);
         }
 
@@ -15,6 +18,7 @@ const userAuthentication = async (req, res, service) => {
 
 };
 const registerUser = async (req,res,service)=>{
+    
     const user = req.body;
     const newUser = await service.registerUser(user);
     res.send(newUser)

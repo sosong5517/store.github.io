@@ -18,10 +18,10 @@ class AuthService {
                     userName: userName,
                 }
             });
+            
             const matchPassword = bcrypt.compareSync(userPassword, authUser.userPassword);
             if (matchPassword) {
                 const expiresIn = process.env.JWT_EXPIRED;
-                console.log('auth gua', authUser.userName)
                 const sessionId = md5(authUser.userName);
 
                 const accessToken = jwt.sign({ sessionId }, process.env.SECRET_KEY, { expiresIn });

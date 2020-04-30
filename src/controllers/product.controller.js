@@ -29,7 +29,7 @@ const updateProduct = async (req, res, service) => {
 };
 
 const deleteProduct = async (req, res, service) => {
-    const productId = req.params.id;
+    const productId = req.query.id;
     const deleteProduct = await service.deleteProduct(productId);
     res.send({id: productId});
 };

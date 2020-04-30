@@ -2,6 +2,7 @@ const logEvent = require('../events/myEmitter');
 const Product = require('../models/product.model');
 const Category = require('../models/category.model');
 const sequelize = require('../../dbConn');
+const { QueryTypes } = require('sequelize');
 
 class ProductService {
     async getAllProduct() {
@@ -37,58 +38,49 @@ class ProductService {
     async getProductById(id) {
         let result;
         try {
-            result = await await sequelize.query('SELECT * FROM product where id=:id', {
-                model: Product,
-                mapToModel: true,
-                replacements: {id: id},
-            });
+            // result = await Product.findAll();
+            result = await Product.findAll({
+                where: { id: id },
+                include: [{ model: Category, as: "category" }] ///< include used to eager-load associated model 
+              })
         } catch (e) {
             logEvent.emit('APP-ERROR', {
                 logTitle: 'GET-PRODUCT-SERVICE-FAILED',
                 logMessage: e
             });
+            throw new Error(e);
         }
         return result;
     }
 
     async createProduct(product) {
-        const promise = new Promise((resolve, reject) => {
-            // product.id = uuidv1();
-            // products.push(product);
-            // resolve(product);
-            connection.query('insert into product(product_name,product_description) values(?,?)',
-                [product.productName, product.productDescription],
-                (err, rows, fields) => {
-                    if (err) {
-                        reject(err);
-                    } else {
-                        resolve(product);
-                    }
-                });
-        });
-        let result;
+        let result
         try {
-            result = await promise;
+             result = await Product.create(product)
+
+            
         } catch (e) {
             logEvent.emit('APP-ERROR', {
                 logTitle: 'CREATE-PRODUCT-SERVICE-FAILED',
                 logMessage: e
             });
+            
         }
-        return result;
+       
     }
 
     async updateProduct(product) {
-        const promise = new Promise((resolve, reject) => {
-            const idx = _.findIndex(products, function (o) {
-                return o.id == product.id;
-            });
-            products.splice(idx, 1, product);
-            resolve(product);
-        });
+        const productdata = await Product.findByPk(product.id);
+        
+
+        productdata.productCode=product.productCode,
+        productdata.productName=product.productName,
+        productdata.categoryId
+        
         let result;
+        
         try {
-            result = await promise;
+            result = await productdata.save();
         } catch (e) {
             logEvent.emit('APP-ERROR', {
                 logTitle: 'UPDATE-PRODUCT-SERVICE-FAILED',
@@ -99,19 +91,23 @@ class ProductService {
     }
 
     async deleteProduct(productId) {
-        const promise = new Promise((resolve, reject) => {
-            const idx = _.findIndex(products, function (o) {
-                return o.id == productId;
-            });
-            products.splice(idx, 1);
-            resolve(productId);
-        });
+        
         let result;
+        try{
+            const productdata = await Product.findByPk(productId);
+        
+        
+       
         try {
-            result = await promise;
+            result = await productdata.destroy();
         } catch (e) {
             logEvent.emit('APP-ERROR', {
                 logTitle: 'DELETE-PRODUCT-SERVICE-FAILED',
+                logMessage: e
+            });
+        }}catch (e) {
+            logEvent.emit('APP-ERROR', {
+                logTitle: 'FIND-PRODUCT-SERVICE-FAILED',
                 logMessage: e
             });
         }

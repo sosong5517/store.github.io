@@ -5,6 +5,7 @@ const User = require('./BasicAuthRepository');
 
 passport.use(new BasicStrategy((username, password, cb) => {
     User.findByUsername(username, (user) => {
+        
         if (!user) {
             return cb(null, false);
         }
